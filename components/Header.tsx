@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useActionState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
@@ -50,12 +50,28 @@ interface HeaderProps {
   totalEarnings: number;
 }
 
-export default function Header(){
+export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
+  const [provider, setProvider] = useState<IProvider | null>(null);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState<any>(null);
+  const pathname = usePathname();
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  // const isMobile = useMediaQuery("(max-width: 768px)");
+  const [balance, setBalance] = useState(0);
 
-  
-  return(
-    <>
+  console.log("user info", userInfo);
 
-    </>
-  );
+  useEffect(() => {
+    const init = async () => {
+      try{
+        await web3Auth.initModal();
+        setProvider(web3Auth.provider)
+      }catch(error){
+
+      }
+    }
+  })
+
+  return <></>;
 }
